@@ -1,0 +1,332 @@
+# Docker concept
+---------------------
+
+# apt update
+
+# apt install docker.io -y
+
+# service docker start
+
+# service docker status
+
+# apt update
+
+# docker info     ##{to give configuration about docker machine}
+
+# docker version    ##{gives version}
+
+# docker search image_name      ##{search images locally than docker_hub}
+
+# docker pull image_name      ##{pulling image from locally, if it's not their than look into docker hub}
+
+##{instead off docker pull , we can directly use 'docker run' command, this will run both the command at a time}
+
+# docker run ubuntu cat /etc/os          ##{to run a conatiner}
+      OR
+  docker container run ubuntu cat /etc/os-release
+
+##{we are creating & running an container but once you come out from terminal, it will automatcally get stopped}
+
+# docker ps       ##{list of running container}
+       OR
+  docker container ls
+
+# docker ps -a      ##{list of all container}
+       OR
+  docker container ls -a  
+
+# docker image history image_name    ##{to show the history of locally present image}
+
+# docker rmi image_name     ##{to remove image which are not associated with any container}
+
+# docker rmi -f image_name      ##{to remove image forecfully, which are associated with container}
+
+# docker image inspect image_name       ##{compelet details of image}
+
+# docker image prune       ##{to remove all unused image}    
+
+# docker image save
+
+# docker image load  
+
+# docker run centos sleep 30         ##{running container only for 30 sec}
+
+##{check before 30 sec}
+
+# docker ps   
+
+##{check after 30 sec}
+
+# docker ps  
+
+# docker rm container_id/container_name      ##{removing container which are in stop state}
+        OR
+  docker container rm container_id/container_name
+
+# docker system prune       ##{delete any resource like image, volume, container & network which are not associated with any container}
+
+# docker start container_id/container_name      ##{start the container}
+        OR
+  docker container start container_id/container_name
+
+
+# docker restart container_id            ##{restarting container}
+
+# docker ps 
+
+# docker stop container_id/container_name
+        OR
+  docker container stop container_id/container_name
+
+# docker ps
+
+# docker run -d -it ubuntu /bin/bash
+
+##{-d = detach mode, so u cn run container in background as well}
+##{-it = intractive mode, so u cn communicate/intract /write somthing inside the container}
+##{/bin/bash = to go inside the container}
+
+##{now we are inside the container, so u cn write any command}
+
+#$ apt install apche2 -y    
+
+#$ exit  or   ctrl+d     ##{to exit}
+
+# docker run -d nginx 
+
+# docker inspect container_id        ##{details of container like:- date, ip, port status, time, process running, driver}
+
+# docker logs container_id        ##{shows logs of the container}
+
+# docker top container_id       ##{display the process which are runnning inside the container}
+
+# docker stats    ##{shows all container memory, utilization, load}
+
+# docker container export    ##{take the backup of file system but not for which are associated with volume}
+
+
+### PORT MAPPING/ PORT FORWARDING
+------------------------------------------------
+
+# docker run -d -p 3600:80 nginx               ##{request hits on 3600 port but it will redirect on 80 called port mapping}
+                   |    |
+  dokcer_machine_port container_port
+
+
+# docker run -d -p 3600:80 --name test_container nginx       ##{assiging name to container}
+
+# docker exec -d -it container_id /bin/bash       ##{to go inside the "running container" and provide shall access}
+
+#$ exit
+
+# docker ps
+
+# docker rename container_id conatiner_newname         ##{renaming the conatiner}
+
+# docker ps
+
+# docker attach container_id       ##{connecting terminal to container or getting inside of container}
+
+# docker wait container_id       ##{gives exact status after container being stop}
+
+# docker pause cpnatiner_id      ##{pause all the process which are runnning inside the container}
+
+###{note u can not access the 'pause container', can verify by hitting the url}
+
+# docker unpause container_id          ##{unpause all the process of the container}
+
+# docker ps
+
+# docker ps -a
+
+# docker prune      ##{to delete all stop container}
+
+# docker container port container_id           ##{to check port mapping of the container}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+### Create container commands:-
+
+
+# docker pull ubuntu          ##{to pull the image from locally & thn dokcer hub}
+
+# docker create ubuntu        ##{to pull image & create container of it}
+
+# docker run ubuntu          ##{to pull image, create a container & than run a container}
+
+# docker diff container_id      ##{to check the filesystem about what is modifying, adding , deleting & etc in the container}
+
+###{whatever modification is happing inside the container, that can be monitored by 'docker diff', you can check by adding or deleting the file/foler}
+##{watch :- command monitored in every 2 sec }
+
+# docker cp folder_name container_id:/tmp/             ##{copy the folder/file from machine to container's tmp foler}
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+### Import/Export the container :-    ##{you can share your complete container with someone else}
+
+
+# docker run -itd ubuntu /bin/bash       ##{running ubuntu container}
+
+#$ apt update                       ##{running command inside the container}
+
+#$ apt install tree git -y
+
+#$ exit or ctrl+d
+
+# docker ps
+
+# docker container export container_id >myfile.tar       ##{exporting a container in a file. Name_of_file type is a filename}
+        OR
+  docker container export container_id -o myfile.tar
+
+# ls -la
+
+###{note:- now we can send the tar fil to ther person where he can use import command to use it}
+
+### {note:- now will create a image from tar file & than will create a container from that newly created image}
+
+# docker image import myfile.tar myimage
+
+# docker images           ##{listing all images to chk myimage}
+
+# docker run -itd myimage /bin/bash             ##{running a conatiner from myimage and ging inside}   
+
+#$ cd /tmp
+
+#$ tree           ##{verifing tree is avaialble}
+
+#$ git --version         ##{verifing git is there or not}
+
+#$ exit
+
+# docker ps
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+### Creating image from running container:-
+
+
+# docker run -itd ubuntu /bin/bash
+
+#$ cd/tmp
+
+#$ touch 1 2 3 4 5
+
+#$ exit
+
+# docker ps
+
+# docker commit --author "ABHISHEK SINGH" -m "creating imgage from running container" container_id mynewimage          ##{committing the image named as mynewimage}#
+
+# docker images
+
+# docker container rm -rf container_id           ##{deleting running container}
+
+# docker run -itd mynewimage /bin/bash           ##{running a container of mynewimage, which we have created above}
+
+#$ cd/tmp
+
+#$ ls
+
+#$ exit
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+### Pusing the image onto Dockerhub
+
+
+# docker images
+
+# docker image tag image_name dockerhub_username/mydockerimage
+
+# docker images
+
+# docker push dockerhub_username/mydockerimage
+
+# docker login
+
+# docker push dockerhub_username/mydockerimage
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+#### Docker File
+
+
+# docker images
+
+# vi Dockerfile
+
+#$ FROM ubuntu:16.04          ##{base image}
+
+#$ MAINTAINER ABHISHEK SINGH       ##{AUTHOR (OPTIONAL)}
+
+#$ LABEl name="Abhishek Singh"
+
+#$ LABEL email="abhi13.rjpt@gmail.com"
+
+#$ ENV NAME ABHISHEK
+
+#$ ENV PASS password
+
+#$ RUN apt-get update && apt install tree -y
+
+#$ RUN touch test1.txt
+
+#$ RUN touch test2.txt
+
+#$ RUN echo "hi this is abhi"
+
+#$ RUN echo "hi this is abhi"
+
+#$ RUN echo "hi this is abhi"
+
+#$ WORKDIR /tmp
+
+#$ RUN pwd>/tmp/test3.txt
+
+#$ RUN apt-get update && apt-get install -y openssh-server && apt-get install -y python       
+
+##{senerio:- 1st user should run as root and 2md user should run as abhishek}
+
+#$ RUN useradd -d /home/abhishek -g root -G sudo -m -p $(echo "$PASS" | openssl passwd -1 -stdin) $NAME
+
+#$ RUN whoami > /tmp/1stwhoami.txt
+
+#$ USER $NAME  
+
+#$ RUN whoami > /tmp/2ndwhoami.txt
+
+#$ RUN  mkdir -p /tmp/project
+
+#$ COPY testproject /tmp/project/
+
+#$ ADD <url paste here>
+
+#$ CMD ["python"]                   ##{command which execute after container creation}
+
+:wq   ##{save & exit}
+
+# docker image build -t myubuntu:13 .
+
+# docker images
+
+# docker container run -p -itd myubuntu:13 /bin/bash
+
+
+
+
+
+
+
+
+
+#
