@@ -125,7 +125,7 @@
 
 # docker ps
 
-# docker attach container_id       ##{connecting terminal to container or getting inside of container}
+# docker attach container_id       ##{connecting terminal to container or getting inside of container but when u come out , container gets stopped}
 
 # docker wait container_id       ##{gives exact status after container being stop}
 
