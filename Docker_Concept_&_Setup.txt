@@ -104,6 +104,21 @@
 
 # docker container export    ##{take the backup of file system but not for which are associated with volume}
 
+### Check the logs of a Docker container:    ##{https://www.shellhacks.com/docker-container-logs-how-to-check}
+# docker logs container
+
+### Show the Docker container logs with timestamps:
+# docker logs container --timestamps
+
+### Show Docker logs since particular date:
+# docker logs container --since YYYY-MM-DD
+
+### Show Docker logs since particular time:
+# docker logs container --since YYYY-MM-DDTHH:MM
+
+##Example:- check Docker logs since 11 am:
+# docker logs container --since 2018-01-30T11:00
+
 
 ### PORT MAPPING/ PORT FORWARDING
 ------------------------------------------------
