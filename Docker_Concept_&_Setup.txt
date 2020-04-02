@@ -348,6 +348,29 @@
 # docker container run -p -itd myubuntu:13 /bin/bash
 
 
+------------------------------------------------------------------------------------------------
+
+## Docker interview question & Answere
+---------------------------------------------------
+
+Q.) How to check which Process and PID and Memory of process inside the container?
+A.) docker top container_id
+
+Q.) How to stop every process which are running inside the container of a running container?
+A.) docker pause contianer_id      ##{container will not get stopped but process}
+
+Q.) How to find what modification has been done inside or file system the contrainer?
+A.) docker diff container_id
+
+Q.) How to get into the existing running container?
+A.) docker exec -it container_id /bin/bash
+             OR
+    docker attach container_id
+    
+Q.) How to get inside of existing stopped container?
+A.) i.) docker start container_id           ##{first we need to start the container}
+   ii.) docker exec -it container_id /bin/bash        ##{second need to enter the container}
+
 
 
 
