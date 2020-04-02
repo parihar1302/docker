@@ -55,28 +55,37 @@
 
 # docker ps   
 
-##{check after 30 sec}
+##{check after 30 sec
 
 # docker ps  
 
 # docker rm container_id/container_name      ##{removing container which are in stop state}
         OR
   docker container rm container_id/container_name
+  
+# docker rm $(docker ps -a -q)          ##{delete all stopped container}
+        OR
+  docker container prune            ##{delete all stopped container}
+  
+# docker rm -f container_id          ##{force delete the running container}
+         OR
+  docker kill container_id        ##{delete/Kill running container }
 
-# docker system prune       ##{delete any resource like image, volume, container & network which are not associated with any container}
+# docker system prune       ##{delete any resource like volume, container & network which are not associated with any container}
 
 # docker start container_id/container_name      ##{start the container}
         OR
   docker container start container_id/container_name
 
-
 # docker restart container_id            ##{restarting container}
 
 # docker ps 
 
-# docker stop container_id/container_name
+# docker stop container_id/container_name            ##{Stop teh container}
         OR
   docker container stop container_id/container_name
+  
+# docker wait container_id              ##{wait till container gets stopped} 
 
 # docker ps
 
