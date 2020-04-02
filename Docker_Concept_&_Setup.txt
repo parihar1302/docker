@@ -139,6 +139,8 @@
 
 # docker run -d -p 3600:80 --name test_container nginx       ##{assiging name to container}
 
+# docker port container_id             ##{on which port container is running}
+
 # docker exec -d -it container_id /bin/bash       ##{to go inside the "running container" and provide shall access}
 
 #$ exit
