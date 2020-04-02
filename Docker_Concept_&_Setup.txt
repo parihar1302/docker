@@ -235,7 +235,7 @@
 ------------------------------------------------------------------------------------------------------------------------------------
 
 
-### Creating image from running container:-
+### Creating Image/snapshot/Backup from running container:
 
 
 # docker run -itd ubuntu /bin/bash
@@ -249,6 +249,10 @@
 # docker ps
 
 # docker commit --author "ABHISHEK SINGH" -m "creating imgage from running container" container_id mynewimage          ##{committing the image named as mynewimage}#
+             OR
+  docker commit container_id newimagename:tag           ##{named new image and give tag}
+  docker login
+  docker push
 
 # docker images
 
