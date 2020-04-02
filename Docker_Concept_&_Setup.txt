@@ -204,6 +204,10 @@
 
 # docker ps
 
+
+##### DOCKER TRANSFER CONTAINER
+------------------------------------------------
+
 # docker container export container_id >myfile.tar       ##{exporting a container in a file. Name_of_file type is a filename}
         OR
   docker container export container_id -o myfile.tar
@@ -370,6 +374,12 @@ A.) docker exec -it container_id /bin/bash
 Q.) How to get inside of existing stopped container?
 A.) i.) docker start container_id           ##{first we need to start the container}
    ii.) docker exec -it container_id /bin/bash        ##{second need to enter the container}
+   
+   
+Q.) How to Export & Import a container?
+
+
+Q.) How to take Image/Snapshot/Backup of your running container?
 
 
 
