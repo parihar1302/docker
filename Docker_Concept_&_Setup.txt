@@ -300,15 +300,15 @@
 
 #$ MAINTAINER ABHISHEK SINGH       ##{AUTHOR (OPTIONAL)}
 
-#$ LABEl name="Abhishek Singh"
+#$ LABEl name="Abhishek Singh"       ##{optional}
 
-#$ LABEL email="abhi13.rjpt@gmail.com"
+#$ LABEL email="abhi13.rjpt@gmail.com"          ##{oprtional}
 
-#$ ENV NAME ABHISHEK
+#$ ENV NAME ABHISHEK            
 
 #$ ENV PASS password
 
-#$ RUN apt-get update && apt install tree -y
+#$ RUN apt-get update && apt install tree -y          ##{while building the image Runs commands execute}
 
 #$ RUN touch test1.txt
 
@@ -411,7 +411,9 @@ A.) No but all the container will be in a stop state.
 Q.) How to automatically start or enable container always at boot time of dockerhost/localhost/machine/server/ec2?
 A.) change the docker restart-policies    https://codeburst.io/how-to-start-docker-containers-automatically-ec0545c392e4
 
-Q.) 
+Q.) Difference B/W RUN & CMD in dockerfile?
+A.) RUN:- it executes while the time of image building
+    CMD:- it execute after container creation
 
 
 
