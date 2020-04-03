@@ -380,10 +380,22 @@ A.) i.) docker start container_id           ##{first we need to start the contai
 Q.) How to Export & Import a container?
 A.)
 
+
 Q.) How to take Image/Snapshot/Backup of your running container?
 A.)  i.) docker commit container_id usernameOf_dokcerhub/new_image_name:tag                   ##{commiting & creating new image}
     ii.) docker login                            #{login into dockerhub account & check docker images & push latest created image}
    iii.) docker push usernameOf_docker/new_image_name                ##{pusing the latest created image into dockerhub}
+    iV.) docker pull usernameOf_docker/new_image_name              ##{pulling image from dockerhub even if u have deleted from locally}
+     V.) docker run -itd usernameOf_docker/new_image_name /bin/bash                     ##{ruuning the container}
+             OR
+     i.) docker export container_id >newfile.tar                ##{taking backup of the file system acsept volume and tarring in a file}
+    ii.) docker import newfile.tar new_image              ##{only importing the file system layer from tar file and creating new image}
+   iii.) docker run -itd new_image /bin/bash               ##{running the container}       
+
+
+Q.) How to save/backup/snapshot of your docker image?
+A.) i.) docker save image_name > newfile.tar           ##{saving all the detail like layer, tag & history of image in a tar file }
+   ii.) docker load < newfile.tar                ##{loading tar file with it's image detail in a docker enhgine}
 
 
 Q.) How to copy a file from localhost to container AND Container to localhost?
@@ -399,7 +411,7 @@ A.) No but all the container will be in a stop state.
 Q.) How to automatically start or enable container always at boot time of dockerhost/localhost/machine/server/ec2?
 A.) change the docker restart-policies    https://codeburst.io/how-to-start-docker-containers-automatically-ec0545c392e4
 
-
+Q.) 
 
 
 
