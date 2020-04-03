@@ -411,7 +411,7 @@ Q.) Difference B/W RUN & CMD in dockerfile?
 A.) RUN:- it executes while the time of image building
     CMD:- it execute after container creation
     
-Q.) Creating a custome ubuntu image and installing nginx in RUN command than how to access the URL?
+Q.) Creating a custome ubuntu image and installing nginx in RUN command than how to automatically start nginx & access the URL?
 A.)
 
 
