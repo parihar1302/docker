@@ -381,13 +381,23 @@ Q.) How to Export & Import a container?
 A.)
 
 Q.) How to take Image/Snapshot/Backup of your running container?
-A.)
+A.)  i.) docker commit container_id usernameOf_dokcerhub/new_image_name:tag                   ##{commiting & creating new image}
+    ii.) docker login                            #{login into dockerhub account & check docker images & push latest created image}
+   iii.) docker push usernameOf_docker/new_image_name                ##{pusing the latest created image into dockerhub}
+
 
 Q.) How to copy a file from localhost to container AND Container to localhost?
 A.)
 
+Q.) Does container lose it's data while at the time of restart?
+A.) No
+
+Q.) Does all the container or data gets lost at the time of dockerhost restart?
+A.) No but all the container will be in a stop state.
 
 
+Q.) How to automatically start or enable container always at boot time of dockerhost/localhost/machine/server/ec2?
+A.) change the docker restart-policies    https://codeburst.io/how-to-start-docker-containers-automatically-ec0545c392e4
 
 
 
