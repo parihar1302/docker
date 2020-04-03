@@ -316,11 +316,7 @@
 
 #$ RUN echo "hi this is abhi"
 
-#$ RUN echo "hi this is abhi"
-
-#$ RUN echo "hi this is abhi"
-
-#$ WORKDIR /tmp
+#$ WORKDIR /tmp                      ##{It is a location from where all the command will execute till end in working directory,}
 
 #$ RUN pwd>/tmp/test3.txt
 
