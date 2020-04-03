@@ -1,3 +1,5 @@
+# vi Dockerfile
+
 FROM ubuntu                                      ##{base or reference image for new container}
 MAINTAINER "parihar1302"                      ##{author optional}
 #LABEL name="ABHISHEK SINGH"                    ##{optional}
@@ -15,3 +17,14 @@ COPY project /testing/prod                            ##{coping files of project
 COPY Development.tar.gz /testing/prod                   ##{coping tar.gz from local machine to container as it is}
 ADD Development.tar.gz /testing/prod                   ##{extracting & adding all the content of tar.gz file in contianer}
 CMD apt update                                     ##{executing CMD commad after container creating}
+
+:wq or exit
+
+# docker build -t myimage:tag .                 ##{tag = mention the tag or version, "." shows pwd} 
+# docker images                                  ##{list images}
+# docker run -itd myimage:tag /bin/bash          ##{running a container}
+# docker ps                                        ##{shows running container list}
+# docker exec -it container_id /bin/bash         ##{going inside the container & checking services}
+
+
+
