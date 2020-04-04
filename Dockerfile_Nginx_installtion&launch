@@ -53,7 +53,7 @@ CMD apt update                          ##{executing CMD after comntainer creati
 
 #$ exit or ctrl+d
 
-# http://localhost:port               ##{hit url with ipAdd:portmapped not 80 }       
+# http://localhost:port               ##{hit url with ipAdd:portmapped not 80}       
 
 
 
