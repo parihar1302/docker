@@ -1,0 +1,68 @@
+# vi Dockerfile
+
+FROM ubuntu                                  ##{base image}
+RUN apt update && apt install nginx -y         ##{executing RUN command while building the image}
+EXPOSE 80                                  ##{exposing port for nginx for port mapping}
+CMD apt update                          ##{executing CMD after comntainer creation}
+          
+:wq           ##{save & exit}
+
+# docker build -t nginximage:tag .         ##{building the new_image, -t is a tag, tag=version, '.' = current working directory}
+
+# docker images                         ##{check new image exist or not}
+
+# docker run -itd -P nginximage:tag /bin/bash      ##{running a container with new image, -P = it mapps any of the open port to 'EXPOSE' port for port mapping}
+
+# docker ps                      ##{check container is runing or not and also on which portnum is runing}
+
+# docker exec -it container_id /bin/bash            ##{going inside the container }
+
+#$ service nginx status          ##{checking status of nginx}
+
+#$ service nginx start          ##{starting nginx service}
+
+#$ exit or ctrl+d
+
+# http://localhost:port               ##{hit url IPAdd and port should be port mapping's }
+
+
+#### Creating an image/snapshot/backup of the container ########################
+
+
+# docker commit -m "DescriptionOfImage" container_id parihar1302/nginx:tag               ##{commiting container into new_image named as nginx with tag where parihar1302 is username of dockerhub account}
+       
+# docker images            ##{check parihar1302/nginx is there or not}     
+
+# docker login       ##{logging into dockerhub account give username & password here:- parihar1302 & Abhi@1302}
+
+# docker push parihar1302/nginx:tag              ##{pussing image into dockerhub account}
+
+# docker rmi parihar1302/nginx:tag           ##{removing image from locally, so now it will download from dockerhub}
+
+# docker pull parihar1302/nginx:tag            ##{download image from dockerhub}
+
+# docker run -itd -P parihar1302/nginx:tag /bin/bash         ##{running container with -P so available open port will map to nginx expose 80}
+
+# docker ps              ##{checking running container and port mapped}
+
+# docker exec -it container_id /bin/bash         
+
+#$ service nginx status
+
+#$ service nginx start
+
+#$ exit or ctrl+d
+
+# http://localhost:port               ##{hit url with ipAdd:portmapped not 80 }       
+
+
+
+
+
+
+
+
+
+
+
+
