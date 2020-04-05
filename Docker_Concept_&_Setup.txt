@@ -351,6 +351,54 @@
 
 ------------------------------------------------------------------------------------------------
 
+
+### DOCKER VOLUNE AND BIND-MOUNT ##############
+
+## docker volume :- if we delete the container thn after we can attach it's the volume with new container. cuzz volume doesnt delete with container.
+
+# docker volume ls                     ##{list of volume present}
+         
+# docker volume create ubuntu        ##{creating volume}
+
+# docker volume inspect volume_id        ##{inspecting the "volume path"}
+
+# docker run -itd -v volume_id:/volume_path mysql /bin/bash         ##{-v:-volume arguemt,}
+
+
+## DOCKER BIND-MOUNT:- localhost share the datalocation with container so it can access through container, so if ur container is deleted, u can mount that local with new container
+
+#example:- 
+# mkdir project && cd project
+
+# vi myfile.txt 
+this is sample       {:wq save & exit}
+
+# docker run -itd -v $(pwd):/tmp/myfolder mysql /bin/bash   
+          OR
+   pwd
+   cd               <localhostpath>  <container path>
+   docker run -itd -v /home/project:/tmp/myfolder mysql /bin/bash          ##{even myfolder is not there, container will automatically createb itself} 
+   
+# docker exec -it container_id /bin/bash
+
+#$ apt update && ls
+
+#$ cd tmp && ls
+
+#$ samplefolder       
+
+#$ ls                 {"check myfile is ther or not"}
+
+
+
+
+
+
+
+
+
+
+
 ## Docker interview question & Answere
 ---------------------------------------------------
 
@@ -447,4 +495,4 @@ xviii.) cd container
   xvv.)  ls                       ##{check wehather fikle is there or not}
  
     
-#
+# How to dettach a volume from running container?
