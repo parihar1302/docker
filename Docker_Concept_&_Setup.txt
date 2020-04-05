@@ -378,13 +378,15 @@ A.)
 
 
 Q.) How to take Image/Snapshot/Backup of your running container?
-A.)  i.) docker commit container_id usernameOf_dokcerhub/new_image_name:tag                   ##{commiting & creating new image}
+A.)  i.) docker run -itd ubuntu /bin/bash                           ##{first running a ubuntu container}
+     i.) docker commit container_id usernameOf_dokcerhub/new_image_name:tag                   ##{commiting & creating new image}
     ii.) docker login                            #{login into dockerhub account & check docker images & push latest created image}
    iii.) docker push usernameOf_docker/new_image_name                ##{pusing the latest created image into dockerhub}
     iV.) docker pull usernameOf_docker/new_image_name              ##{pulling image from dockerhub even if u have deleted from locally}
      V.) docker run -itd usernameOf_docker/new_image_name /bin/bash                     ##{ruuning the container}
              OR
-     i.) docker export container_id >newfile.tar                ##{taking backup of the file system acsept volume and tarring in a file}
+    i.) docker run -itd ubuntu /bin/bash
+    i.) docker export container_id >newfile.tar                ##{taking backup of the file system acsept volume and tarring in a file}
     ii.) docker import newfile.tar new_image              ##{only importing the file system layer from tar file and creating new image}
    iii.) docker run -itd new_image /bin/bash               ##{running the container}       
 
@@ -412,8 +414,37 @@ A.) RUN:- it executes while the time of image building
     CMD:- it execute after container creation
     
 Q.) Creating a custome ubuntu image and installing nginx in RUN command than how to automatically start nginx & access the URL?
-A.)
+A.) Refer other github/docker/nginx file.
 
-
-
+Q.) How to retrive data/volume, if container is deleted?OR How to bind mount form localhost if container is terminated? 
+A.) when u delete the container, u cn retive volume cuzz volume doest delete with it 
+    Take the container volume and create new container with that.
+    i.) docker volume ls                        ##{list of all volume}
+   ii.) docker inspect volume_id                               ##[findind the correct volume]
+  iii.) docker inspect container_id               ##{to find docker's volume path}
+   ii.) docker images                        
+  iii.) docker image inspect mysql                                         ##{inspecting image to find the volume path in container}
+   vi.) docker run -itd -v volume_id:/var/lib/mysql mysql /bin/bash       ##{ruuning new container and attached deleted container volume where -v argument of volume /var/lib/mysql is a container volume path and mysql is image}
+  vii.) docker ps
+ viii.) docker exec -it container_id /bin/bash                    ##{entering in container and checking old data}     
+   xi.) apt update          ##after this , u can check the old data
+   
+                  OR    ALSO CALLED AS BIND MOUNT METHOD
+    i.) mkdir project            ##{creating a folder}
+   ii.) cd project      
+  iii.) vi test.txt                ##{creating a file so this file should be available}
+  vi.) pwd                   ##{copy the localhost path}
+  vi.) cd 
+ vii.) docker run -itd -v /home/project/:/tmp/singh /bin/bash        ##{paste localhost path:container path(where u want the file)}
+                         <localhostSRC    <container's path>
+viii.) docker ps
+  x.i) docker exec -it container_id /bin/bash
+  xii.) apt update
+ xiii.) ls 
+ xvi.)  cd /tmp 
+ xvii.) ls
+xviii.) cd container
+  xvv.)  ls                       ##{check wehather fikle is there or not}
+ 
+    
 #
