@@ -1,0 +1,64 @@
+# Docker volume can not delete when you delete the container. It is a data which you can use with other container as well
+
+# first dlete any mysql or other container
+-----------------------------------------
+
+# docker volume create mysql                 ##{can create volume }
+# docker volume create mysql2
+# docker volume create ubuntu             
+
+
+
+    i.) docker volume ls                        ##{list of all volume}
+
+   ii.) docker inspect volume_id                               ##[findind the correct volume]
+
+  iii.) docker inspect container_id               ##{to find docker's volume path}
+
+   ii.) docker images                        
+
+  iii.) docker image inspect mysql                                         ##{inspecting image to find the volume path in container}
+
+   vi.) docker run -itd -v volume_id:/var/lib/mysql mysql /bin/bash       ##{ruuning new container and attached deleted container volume where -v argument of volume /var/lib/mysql is a container volume path and mysql is image}
+
+  vii.) docker ps
+
+ viii.) docker exec -it container_id /bin/bash                    ##{entering in container and checking old data}     
+
+   xi.) apt update          ##after this , u can check the old data
+
+   
+  ##BIND MOUNT :- localhost shares the location with container' so container can access it, even after losing the container. Can mount the location with new container.
+  
+  # docker run -itd -v <localhostpath>:<containerpath> ubuntu /bin/bash     ##{creating a new container with binding a data which are prestent in local to send in a container}
+                                                                            ## {if u r mentioning a container path which are not in container, so no worry that path will automatically create}
+   
+    i.) mkdir project            ##{creating a folder}
+
+   ii.) cd project      
+
+  iii.) vi test.txt                ##{creating a file so this file should be available}
+
+  vi.) pwd                   ##{copy the localhost path}
+
+  vi.) cd 
+
+ vii.) docker run -itd -v /home/project/:/tmp/singh /bin/bash        ##{paste localhost path:container path(where u want the file)}
+
+                         <localhostSRC    <container's path>
+
+viii.) docker ps
+
+  x.i) docker exec -it container_id /bin/bash
+
+  xii.) apt update
+
+ xiii.) ls 
+
+ xvi.)  cd /tmp 
+
+ xvii.) ls
+
+xviii.) cd container
+
+  xvv.)  ls                       ##{check wehather fikle is there or not}
