@@ -389,7 +389,21 @@ this is sample       {:wq save & exit}
 
 #$ ls                 {"check myfile is ther or not"}
 
+--------------------------------------------------------------------------------------
 
+#### DOCKER NETWORK ##########
+
+## 3 type :- bride(default):- connection create b/w 2 container in same domain    (domain resoltion not allowd)
+             overrely/host:- connection create b/w 2 container in different domain (domaine resolution not allowd)
+             none (custome):- can communicate 2 container in same network because domain resolution allowd by defaiult
+
+# docker network ls                 ##{list of all network}
+
+# docker network create mynetwork           ##{creating new network named as mynetwork}
+
+# docker run -itd --network=mynetwork ubuntu /bin/bash           ##{adding a network with a container}
+
+# 
 
 
 
@@ -421,8 +435,9 @@ A.) i.) docker start container_id           ##{first we need to start the contai
    ii.) docker exec -it container_id /bin/bash        ##{second need to enter the container}
    
    
-Q.) How to Export & Import a container?
-A.)
+Q.) How to Export & Import a container or backup/snapshot of container?
+A.) docker export container_id >myfile.tar               ##{taking filesystem from container in a file}not volume only filesystem
+    docker import myfile.tar myimage                   ##{importing filesystem from tar file into new image named as myimage}
 
 
 Q.) How to take Image/Snapshot/Backup of your running container?
@@ -495,4 +510,16 @@ xviii.) cd container
   xvv.)  ls                       ##{check wehather fikle is there or not}
  
     
-# How to dettach a volume from running container?
+Q.) How to dettach a volume from running container?
+A.)
+
+Q.) How to create a network & attach with a container?
+A.) docker network create mynetwork                  ##{creating new network}
+    docker network ls                                 ##{list all network}
+    docker run -itd --network=mynetwork ubuntu /bin/bash         ##{running & attaching a container with mynetwork}
+
+Q.) How to communicate 2 different container?(same & different both network
+A)
+
+Q.) How to attach & dettach network from existing contaqiner?
+A
