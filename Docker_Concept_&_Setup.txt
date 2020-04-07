@@ -1,6 +1,8 @@
 # Docker concept
 ---------------------
 
+###Step:- INSTALLTION & CONFIGURATION:-
+
 # apt update
 
 # apt install docker.io -y
@@ -133,7 +135,7 @@
 ------------------------------------------------
 
 # docker run -d -p 3600:80 nginx               ##{request hits on 3600 port but it will redirect on 80 called port mapping}
-                   |    |
+                   |    |                      ##{-P IS A static PORT ARGUMENT where -P is a dynamic(automatically) assign port}
   dokcer_machine_port container_port
 
 
@@ -267,7 +269,7 @@
 #$ exit
 
 
--------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
 
 
 ### Pusing the image onto Dockerhub
@@ -446,6 +448,8 @@ Ex:- docker run -itd --network=host nginx               ##{hit the ip only not a
 ##{note:- host network can not connect to same and other network}
 #{note:- none network can not connect to same and other network}
 ##{note:- only bridge network can connect to multiple brdige network only.}
+
+----------------------------------------------------------------------------------------------------------------------------------------
 
 
 
