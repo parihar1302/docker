@@ -399,16 +399,53 @@ this is sample       {:wq save & exit}
 
 # docker network ls                 ##{list of all network}
 
-# docker network create mynetwork           ##{creating new network named as mynetwork}
+# docker network create mynetwork           ##{creating new network named as mynetwork by default that will be bridge}
+
+# docker network create -d bridge testnetwork          ##{can select your network driver by mentioning bride}
+##{note:- u cn not create another host or none network cuzz only 1 host or none network is allowed for a instance}{also due to this these network con not connect to same and other network also}
+
+# docker network inspect                                   ##{insppecting all detail regatding network}
+
+# docker network rm network_name                          ##{deleting the network }
+
+# docker network prune                                     ##{deleting all unused network}
 
 # docker run -itd --network=mynetwork ubuntu /bin/bash           ##{adding a network with a container}
 
-# 
+# docker run -itd --network=none ubuntu /bin/bash               ##{to create empty null network} 
+
+# when u create a container by default that belong to bridge network.
+EX:- docker run -itd ubuntu /bin/bash       ##{coms under bridge network}
+
+# when u communicate 2 by default network like below command than u cant ping hostname bcoz DNS enable is not present in by default network. but can ping through ip.
+EX:- docker run -itd ubuntu /bin/bash 
+
+# when u create customize network and communicate 2 container to each other than it can comminucate with ip as well as hostname becoz DNS enable for customize network.
+
+# u cn run nginx contaiiner without port mapping, if u r using "host network".
+Ex:- docker run -itd --network=host nginx               ##{hit the ip only not any port, it doesnt allow port mapping}
+
+     docker run -itd -p 4001:80 nginx              ##{assigning 4001 for port mapping to 80}
+    
+     dokcer run -itd -P nginx                    ##{automatically assign port for port mapping with 80}
 
 
+### Connecting a container with 2 or many network########
 
+# docker run -itd ubuntu                  ##{running a container with by default bridge network}
 
+# docker network create mynetwork
 
+# docker network ls
+
+# docker network connect mynetwork container_id                ##{connecting mynetwork with container}
+
+# docker inspect container_id
+
+# docker network disconnect mynetwork container_id             ##{detaching a container with a network}
+##{note:- host network can not connect to same and other network}
+#{note:- none network can not connect to same and other network}
+##{note:- only bridge network can connect to multiple brdige network only.}
 
 
 
@@ -518,8 +555,13 @@ A.) docker network create mynetwork                  ##{creating new network}
     docker network ls                                 ##{list all network}
     docker run -itd --network=mynetwork ubuntu /bin/bash         ##{running & attaching a container with mynetwork}
 
-Q.) How to communicate 2 different container?(same & different both network
+Q.) How to communicate 2 different container?(same & different both network)
 A)
 
-Q.) How to attach & dettach network from existing contaqiner?
-A
+Q.) How to attach & dettach network from existing contaqiner? 
+         OR
+    How to connect & disconnect a container with 2 or multiple network?
+A.) docker network create mynetwork                            ##{creating new_network named as mynetwork}
+    docker network connect mynetwork container_id              ##{connecting mynetwork to running existing container}
+    docker inspect container_id                                ##{inspecting both the network}
+    docker network disconnect mynetwork container_id           ##{disconnecting mynetwork from container}
