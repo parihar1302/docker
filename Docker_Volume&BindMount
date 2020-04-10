@@ -27,8 +27,12 @@
 
    xi.) apt update          ##after this , u can check the old data
 
+
+
+
    
-  ##BIND MOUNT :- localhost shares the location with container' so container can access it, even after losing the container. Can mount the location with new container.
+  ## BIND MOUNT :- localhost shares the location with container' so container can access it, even after losing the container. Can mount the location with new container.
+  ----------------
   
   # docker run -itd -v <localhostpath>:<containerpath> ubuntu /bin/bash     ##{creating a new container with binding a data which are prestent in local to send in a container}
                                                                             ## {if u r mentioning a container path which are not in container, so no worry that path will automatically create}
