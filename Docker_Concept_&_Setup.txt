@@ -70,8 +70,6 @@
   docker container prune            ##{delete all stopped container}
   
 # docker rm -f container_id          ##{force delete the running container}
-         OR
-  docker kill container_id        ##{delete/Kill running container }
 
 # docker system prune       ##{delete any resource like volume, container & network which are not associated with any container}
 
@@ -83,9 +81,12 @@
 
 # docker ps 
 
-# docker stop container_id/container_name            ##{Stop teh container}
+# docker stop container_id/container_name            ##{Stop/kill the container}
         OR
   docker container stop container_id/container_name
+        OR
+  docker kill container_id        ##{delete/Kill running container }
+
   
 # docker wait container_id              ##{wait till container gets stopped} 
 
