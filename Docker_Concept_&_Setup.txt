@@ -541,6 +541,7 @@ A.) when u delete the container, u cn retive volume cuzz volume doest delete wit
    xi.) apt update          ##after this , u can check the old data
    
                   OR    ALSO CALLED AS BIND MOUNT METHOD
+                  
     i.) mkdir project            ##{creating a folder}
    ii.) cd project      
   iii.) vi test.txt                ##{creating a file so this file should be available}
@@ -566,6 +567,7 @@ A.) docker network create mynetwork                  ##{creating new network}
     docker network ls                                 ##{list all network}
     docker run -itd --network=mynetwork ubuntu /bin/bash         ##{running & attaching a container with mynetwork}
 
+
 Q.) How to communicate 2 different container?(same & different both network)
 A)  same networ k=  bridge
     different network = host
@@ -574,9 +576,15 @@ A)  same networ k=  bridge
   
   
 Q.) How to create 2 layer architucter in docker?{mysql and wordpress}
-A.) docker run --name mysql_container -e MYSQL_ROOT_PASSWORD=password -d mysql:5.7      ##{running mysql container}
-    docker inspect container_id        ##{inspceting the ip of mysql container}
-    docker run --name wordpress_container -e WORDPRESS_DB_HOST<mysqlIPadd>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=password            ##{running wordpress container with mysql ip, user and password}
+A.) i.) docker run -itd --name mysql_container -e MYSQL_ROOT_PASSWORD=password mysql:5.7 /bin/bash      ##{running mysql container}
+   ii.) docker inspect container_id        ##{inspceting the ip of mysql container}
+  iii.) docker run -itd --name wordpress_container -e WORDPRESS_DB_HOST<mysqlIPadd>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=password wordpress          ##{running wordpress container with mysql ip, user and password}widout portmapping
+                        OR  {u can use port mapping}
+       docker run -itd -P --name wordpress_container -e WORDPRESS_DB_HOST<mysqlIPadd>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=password wordpress     ##{running container with port mapping}                    
+                        
+   iv.) curl <localhostIP>:port       ##{verify by cli }
+{ERROR:- browser thowing an database connection error
+  
          
 
 Q.) How to attach & dettach network from existing contaqiner? 
