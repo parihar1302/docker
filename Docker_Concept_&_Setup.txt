@@ -569,8 +569,7 @@ A.) docker network create mynetwork                  ##{creating new network}
 
 
 Q.) How to communicate 2 different container?(same & different both network)
-A)  same networ k=  bridge
-    different network = host
+A)  login in one and ssh or ping other's ip address
     ping hostname
     ping ipadd
   
@@ -589,10 +588,20 @@ A.) i.) docker run -itd --name mysql_container -e MYSQL_ROOT_PASSWORD=password m
   
          
 
-Q.) How to attach & dettach network from existing contaqiner? 
+Q.) How to attach & dettach network on existing contaqiner? 
          OR
     How to connect & disconnect a container with 2 or multiple network?
 A.) docker network create mynetwork                            ##{creating new_network named as mynetwork}
     docker network connect mynetwork container_id              ##{connecting mynetwork to running existing container}
     docker inspect container_id                                ##{inspecting both the network}
     docker network disconnect mynetwork container_id           ##{disconnecting mynetwork from container}
+    
+
+Q.) Can Host network of container communicate to bridge network container?
+A.) YES.  {"check 2nd above answere from this.}
+
+Q.) How to cxhange the docker port?
+A.)
+
+Q.) How can 2 service run on 1 single port?
+A.)
