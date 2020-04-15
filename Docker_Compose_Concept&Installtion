@@ -1,2 +1,10 @@
 ## Docker-Compose Setup
 ----------------------------------
+
+## Docker-compose:- u can define multi-container docker application in a docker-compose.yml file and execute thm all at a same time.
+ ----------------
+ # vi docker-compose.yml
+ 
+ 
+ 
+                  
