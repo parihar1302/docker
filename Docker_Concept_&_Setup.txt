@@ -455,6 +455,12 @@ Ex:- docker run -itd --network=host nginx               ##{hit the ip only not a
 
 
 
+
+
+
+
+
+
 ## Docker interview question & Answere
 ---------------------------------------------------
 
@@ -553,7 +559,7 @@ xviii.) cd container
  
     
 Q.) How to dettach a volume from running container?
-A.)
+A.) 
 
 Q.) How to create a network & attach with a container?
 A.) docker network create mynetwork                  ##{creating new network}
@@ -561,7 +567,17 @@ A.) docker network create mynetwork                  ##{creating new network}
     docker run -itd --network=mynetwork ubuntu /bin/bash         ##{running & attaching a container with mynetwork}
 
 Q.) How to communicate 2 different container?(same & different both network)
-A)
+A)  same networ k=  bridge
+    different network = host
+    ping hostname
+    ping ipadd
+  
+  
+Q.) How to create 2 layer architucter in docker?{mysql and wordpress}
+A.) docker run --name mysql_container -e MYSQL_ROOT_PASSWORD=password -d mysql:5.7      ##{running mysql container}
+    docker inspect container_id        ##{inspceting the ip of mysql container}
+    docker run --name wordpress_container -e WORDPRESS_DB_HOST<mysqlIPadd>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=password            ##{running wordpress container with mysql ip, user and password}
+         
 
 Q.) How to attach & dettach network from existing contaqiner? 
          OR
