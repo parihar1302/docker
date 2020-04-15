@@ -580,7 +580,9 @@ A.) i.) docker run -itd --name mysql_container -e MYSQL_ROOT_PASSWORD=password m
    ii.) docker inspect container_id        ##{inspceting the ip of mysql container}
   iii.) docker run -itd --name wordpress_container -e WORDPRESS_DB_HOST<mysqlIPadd>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=password wordpress          ##{running wordpress container with mysql ip, user and password}widout portmapping
                         OR  {u can use port mapping}
-       docker run -itd -P --name wordpress_container -e WORDPRESS_DB_HOST<mysqlIPadd>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=password wordpress     ##{running container with port mapping}                    
+       docker run -itd -P --name wordpress_container -e WORDPRESS_DB_HOST<mysqlIPadd>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=password wordpress     ##{running container with port mapping} 
+  ##{note:- u cn use host network also for wordpress, it will surly communicate with mysql, but it doesnt mean of connection}
+               
                         
    iv.) curl <localhostIP>:port       ##{verify by cli }
 {ERROR:- browser thowing an database connection error
