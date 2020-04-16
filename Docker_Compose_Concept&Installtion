@@ -13,11 +13,11 @@
  # vi docker-compose.yml                 ##{creating docker-compose file, cuzz docker-compse read only yml or jason file formate only}
 version: "3"                             ##{version based on the docker engine}
 services:                                ##{services/image/sodtware parameter}
-  nginx1:                                ##{appnode, we can give any name, it will show on containers_name}
+  nginx1:          ##{appnode1}          ##{appnode, we can give any name, it will show on containers_name}
     image: nginx                         ##{image on which u want to create container}
     ports:                               ##{exposing/opening port for container}
       - "9000:80"                        ##{portmapping from 9000 dockerhost to 80 nginx_container}
-  nginx2:                                ##{another nginx container}
+  nginx2:          ##{appnode2}          ##{another nginx container}
     image: nginx
     ports:
       - "8000:80"
@@ -50,9 +50,11 @@ services:                                ##{services/image/sodtware parameter}
 
 # docker-compose pull               ##{pulling the image from locally otherwise dockerhub which are mentioned in the scipt}
 
-# docker-compose create             ##{create all container but not running}
+# docker-compose create             ##{create all container but not running and also they will not have any network attached
 
-# docker-compose up -d                    ##{creating & running all container which are present in docker-compose.yml."-d"=detachable mode}
+# docker-compose up -d                    ##{creating & running all container are present in docker-compose.yml aslo atach default new ork
+
+# docker-compose up -d nginx2             ##{creating & running only 1 container which are present in docker-compose.yml
 
 # docker-compose ps                       ##{to show status & detail of all container}
 
@@ -62,9 +64,15 @@ services:                                ##{services/image/sodtware parameter}
 
 # docker-compose start                  ##{starting all stopped container}
 
+# docker-compose start nginx2            ##{starting nginx2 container only}
+
 # docker-compose stop                   ##{stopping all started container}
        OR
   docker-compose kill
+  
+# docker-compose stop nginx2             ##{stopping 1 container which name is nginx2
+      OR
+  docker-compose kill nginx2
 
 # docker-compose restart                ##{restarting all the containers}
 
@@ -72,16 +80,26 @@ services:                                ##{services/image/sodtware parameter}
 
 # docker-compose logs -f                    ##{to check the logs}
 
+# docker-compose logs -f nginx2              ##{checking logs for only 1 container
+
 # docker-compose port nginx2 80              ##{show the port mapping}
 
+# docker-compose pause                        ##{pause all container}
+
+# docker-compose unpause                      ##{unpause all the container}
+
+# docker-compose pause nginx2                 ##{pause a container which named as nginx2 only, so u will not be able to access it}
+
+# docker-compose unpause nginx2               ##{unpause the container}
+
+# docker-compose exec nginx2 ls               ##{executing list command inside a container from localhost}
+
+# docker-compose run nginx2 ls                ##{creating a container of nginx2 service in stopped state and executing list command}
 
 
-# 
 
 
-
-
-
+#
 
 
 _______________________________________________________________________________________________________________________________________
