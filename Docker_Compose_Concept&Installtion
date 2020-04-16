@@ -32,6 +32,8 @@ services:                                ##{services/image/sodtware parameter}
  # localhostIP:8000               ##{hit the browsr}
  # localhostIP:9000               ##{hit the browser}
  
+ # docker-compose logs -f                  ##{check the logs of both the container}
+ 
  # docker network ls              ##{by default new network will be created}
  
  # docker-compose down           ##{to delete the running container and everything acsept volume}
@@ -46,9 +48,13 @@ services:                                ##{services/image/sodtware parameter}
 
 ##{note:- docker-compose command will not have any control on normal container<which are not associated with docker-compose script>}
 
+# docker-compose pull               ##{pulling the image from locally otherwise dockerhub which are mentioned in the scipt}
+
 # docker-compose create             ##{create all container but not running}
 
 # docker-compose up -d                    ##{creating & running all container which are present in docker-compose.yml."-d"=detachable mode}
+
+# docker-compose ps                       ##{to show status & detail of all container}
 
 # docker-compose down                    ##{deleting all running container with network but this will not dlete volume}
 
@@ -57,12 +63,34 @@ services:                                ##{services/image/sodtware parameter}
 # docker-compose start                  ##{starting all stopped container}
 
 # docker-compose stop                   ##{stopping all started container}
+       OR
+  docker-compose kill
+
+# docker-compose restart                ##{restarting all the containers}
 
 # docker-compose rm container_id              ##{remove stop container}
+
+# docker-compose logs -f                    ##{to check the logs}
+
+# docker-compose port nginx2 80              ##{show the port mapping}
+
+
 
 # 
 
 
+
+
+
+
+
+_______________________________________________________________________________________________________________________________________
+
+
+#### QUESTIONS & ANSWERE ######################################
+
+Q.) How to assign auto assign port or dynamic port mapping in docker-compose file?
+A.)
 
 
  # {:-if u want to run docker-compose.yml file with different name like myfile.yml}
