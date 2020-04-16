@@ -3,6 +3,7 @@
 
 ## Docker-compose:- u can define multi-container docker application in a docker-compose.yml file and execute thm all at a same time.
  ----------------   
+
  # apt install docker.io -y                          ##{installing docker}
  
  # apt install docker-compose -y                     ##{installing docker-compose}
@@ -37,15 +38,34 @@ services:                                ##{services/image/sodtware parameter}
  
  # docker volume rm volume_id        ##{deleting volume}
  
- 
+------------------------------------------------------------------------------------------------------------------------------------- 
+
+
+
+############## DOCKER-COMPOSE COMMANDS ###########
+
+##{note:- docker-compose command will not have any control on normal container<which are not associated with docker-compose script>}
+
+# docker-compose create             ##{create all container but not running}
+
+# docker-compose up -d                    ##{creating & running all container which are present in docker-compose.yml."-d"=detachable mode}
+
+# docker-compose down                    ##{deleting all running container with network but this will not dlete volume}
+
+# docker-compose down --v                ##{deleting all running container with respective volumes}
+
+# docker-compose start                  ##{starting all stopped container}
+
+# docker-compose stop                   ##{stopping all started container}
+
+# docker-compose rm container_id              ##{remove stop container}
+
+# 
+
+
+
+
  # {:-if u want to run docker-compose.yml file with different name like myfile.yml}
  # mv docker-compose.yml myfile.yml
  # docker-compose -f myfile.yml up -d
-
-
-
-
-
- 
- 
                   
