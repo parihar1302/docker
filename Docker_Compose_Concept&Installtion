@@ -2,9 +2,50 @@
 ----------------------------------
 
 ## Docker-compose:- u can define multi-container docker application in a docker-compose.yml file and execute thm all at a same time.
- ----------------
- # vi docker-compose.yml
+ ----------------   
+ # apt install docker.io -y                          ##{installing docker}
  
+ # apt install docker-compose -y                     ##{installing docker-compose}
+ 
+ # apt update
+ 
+ # vi docker-compose.yml                 ##{creating docker-compose file, cuzz docker-compse read only yml or jason file formate only}
+version: "3"                             ##{version based on the docker engine}
+services:                                ##{services/image/sodtware parameter}
+  nginx1:                                ##{appnode, we can give any name, it will show on containers_name}
+    image: nginx                         ##{image on which u want to create container}
+    ports:                               ##{exposing/opening port for container}
+      - "9000:80"                        ##{portmapping from 9000 dockerhost to 80 nginx_container}
+  nginx2:                                ##{another nginx container}
+    image: nginx
+    ports:
+      - "8000:80"
+ 
+ :wq                                       ##{exit & save}
+ 
+ 
+ # docker-compose up -d              ##{running docker-compose file/script in detachable mode, -d=detachable mode}
+ 
+ # docker ps
+ 
+ # localhostIP:8000               ##{hit the browsr}
+ # localhostIP:9000               ##{hit the browser}
+ 
+ # docker network ls              ##{by default new network will be created}
+ 
+ # docker-compose down           ##{to delete the running container and everything acsept volume}
+ 
+ # docker volume rm volume_id        ##{deleting volume}
+ 
+ 
+ # {:-if u want to run docker-compose.yml file with different name like myfile.yml}
+ # mv docker-compose.yml myfile.yml
+ # docker-compose -f myfile.yml up -d
+
+
+
+
+
  
  
                   
