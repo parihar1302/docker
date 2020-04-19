@@ -21,6 +21,10 @@ services:                                ##{services/image/sodtware parameter}
     image: nginx
     ports:
       - "8000:80"
+  jenkins3:         ##{appnode3}
+    image: jenkins
+    ports:
+      - 7000:8080
  
  :wq                                       ##{exit & save}
  
@@ -96,10 +100,25 @@ services:                                ##{services/image/sodtware parameter}
 
 # docker-compose run nginx2 ls                ##{creating a container of nginx2 service in stopped state and executing list command}
 
+# docker-compose top                          ##{to check which process, port and memory running inside the container}
 
 
 
-#
+########## DOCKER-COMPOSE BIND-MOUNT #################################
+
+# touch myfile.txt
+
+# vi docker-compose.yml                 ##{creating docker-compose file, cuzz docker-compse read only yml or jason file formate only}
+version: "3"                             ##{version based on the docker engine}
+services:                                ##{services/image/sodtware parameter}
+  nginx1:          ##{appnode1}          ##{appnode, we can give any name, it will show on containers_name}
+    image: nginx                         ##{image on which u want to create container}
+    ports:                               ##{exposing/opening port for container}
+      - "9000:80"                        ##{portmapping from 9000 dockerhost to 80 nginx_container}
+    volume:
+      - .myfile.txt:/tmp/prod                ##{mounting pwd myfile in conrainer's prod location}
+
+
 
 
 _______________________________________________________________________________________________________________________________________
@@ -110,6 +129,13 @@ ________________________________________________________________________________
 Q.) How to assign auto assign port or dynamic port mapping in docker-compose file?
 A.)
 
+Q.) how can i enable auto scaling for container, if container goes down?
+
+Q.) how to create and build image& run container of Dockerfile through docker-compose.yml script?
+           OR
+    how to run Dockerfile from docker-compose.yml
+    
+    
 
  # {:-if u want to run docker-compose.yml file with different name like myfile.yml}
  # mv docker-compose.yml myfile.yml
