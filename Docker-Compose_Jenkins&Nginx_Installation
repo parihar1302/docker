@@ -1,0 +1,12 @@
+# vi docker-compose.yml
+
+version: "3"
+services:
+  nginx2:          ##{appnode2}          ##{another nginx container}
+    image: nginx
+    ports:
+      - "8000:80"
+  jenkins3:         ##{appnode3}
+    image: jenkins                    ##{taking the jenkins image}
+    ports:
+      - 7000:8080                     ##{running jenkins container on 7000 port of localhost}
