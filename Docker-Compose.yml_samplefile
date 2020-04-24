@@ -1,0 +1,44 @@
+######  docker-compose.yml a sample file ####
+__________________________________________________________________________________
+
+version: "3"
+services:
+  nginx1:                               ##{service1}
+    build: .                            ##{buildind the image from Dockerfile, "." current directory path}
+    ports:
+      - "7000:80"
+    volumes:
+      - myvolume1:/tmp/
+    networks:
+      - mynetwork2
+    image: parihar1302/nginxweb              ##{naming the build image, if u dnt give thn automatically get assigned}
+  jenkins2:
+    image: jenkins
+    ports:
+      - "8000:8080"
+    restart: always
+    volumes:
+      - myvolume2:/tmp/                 ##{volume will store inside the tmp folder}
+    networks:
+      - mynetwork1
+    depends_on:
+      - nginx3
+      - redis4
+  nginx3:
+    image: nginx
+    ports:
+      - "9000:9000"
+    restart: always
+    volumes:
+      - myvolume2:/tmp/prod/            ##{volume will store inside the prod folder}
+    networks:
+      - mynetwork1
+  redis4:
+    image: redis
+volumes:                    ##{creating myvolume1 & myvolume2 to add on container}
+  myvolume1:
+  myvolume2:
+networks:                   ##{creating mynetwork1 and mynetwork2 to add on container}
+  mynetwork1:
+  mynetwork2:
+
