@@ -394,6 +394,8 @@ this is sample       {:wq save & exit}
 
 --------------------------------------------------------------------------------------
 
+
+
 #### DOCKER NETWORK ##########
 
 ## 3 type :- bride(default):- connection create b/w 2 container in same domain    (domain resoltion not allowd)
@@ -453,7 +455,10 @@ Ex:- docker run -itd --network=host nginx               ##{hit the ip only not a
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 
+#####  DOCKER RESTART POLICY ##########
 
+1.) --restart unless-stopped                        ##{if dockerhost crashes or restart, container will also be restarted automatically}
+# docker run -itd --restart unless-stopped httpd       ##{running httpd container with automatically start when localhost restart}
 
 
 
