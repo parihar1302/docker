@@ -119,6 +119,16 @@ services:                                ##{services/image/sodtware parameter}
       - .myfile.txt:/tmp/prod                ##{mounting pwd myfile in conrainer's prod location}
 
 
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+## DOCKER-Compose SCALE :-  Can create muiltiple container {remeber dockerhost port should not conflict}
+__________________________
+
+# docker-compose scale nginx1=3 nginx2=5 
+
+# docker-compose ps
+
 
 
 _______________________________________________________________________________________________________________________________________
@@ -131,13 +141,18 @@ A.)
 
 Q.) how can i enable auto scaling for container, if container goes down?
 
+
 Q.) how to create and build image& run container of Dockerfile through docker-compose.yml script?
            OR
     how to run Dockerfile from docker-compose.yml
-    
+A.) Step1) create Dockerfile
+    Step2) Create docker-compose.yml and use build parameter
     
 
  # {:-if u want to run docker-compose.yml file with different name like myfile.yml}
  # mv docker-compose.yml myfile.yml
  # docker-compose -f myfile.yml up -d
-                  
+ 
+ 
+Q.) How to scale container?
+A.) docker-compose scale servicename             ##{servicename is an appnode which u have mention in docker-compose.yml}
