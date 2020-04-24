@@ -115,7 +115,7 @@ services:                                ##{services/image/sodtware parameter}
     image: nginx                         ##{image on which u want to create container}
     ports:                               ##{exposing/opening port for container}
       - "9000:80"                        ##{portmapping from 9000 dockerhost to 80 nginx_container}
-    volume:
+    volumes:
       - .myfile.txt:/tmp/prod                ##{mounting pwd myfile in conrainer's prod location}
 
 
