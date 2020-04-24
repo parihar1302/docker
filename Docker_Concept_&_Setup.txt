@@ -502,13 +502,27 @@ A.)  i.) docker run -itd ubuntu /bin/bash                           ##{first run
    iii.) docker run -itd new_image /bin/bash               ##{running the container}       
 
 
-Q.) How to save/backup/snapshot of your docker image?
+Q.) How to save/backup/snapshot of your docker image? 
 A.) i.) docker save image_name > newfile.tar           ##{saving all the detail like layer, tag & history of image in a tar file }
    ii.) docker load < newfile.tar                ##{loading tar file with it's image detail in a docker enhgine}
 
 
-Q.) How to copy a file from localhost to container AND Container to localhost?
-A.)
+Q.) How to copy a file from localhost to existing container AND Container to localhost?
+A.) i.) Dockerhost/Localhost to container:-
+        docker cp myfile container_id:/root/myfile     ##{dockerhost named as myfile is going to copy to container's root directory}    
+       
+   ii.) Container to dockerhost:-             
+        docker cp container_id:/root/myfile myfile      ##{container's root directory file named as myfile goin to localhost}
+    
+    
+Q.) How to copy a file from localhost to newly created container automatically?
+          OR
+    When u run a container file should be present insie which is now present in localhost?
+A.) while creating Dockerfile give these below parameters:-
+    COPY myfile /prod/           ##{copy from localhost myfile to container's prod folder, prod will be created automatically}
+           OR
+    ADD myfile /prod/            #{add the myfile from localhost to containers prod, prod will be created automatically}
+    
 
 Q.) Does container lose it's data while at the time of restart?
 A.) No
