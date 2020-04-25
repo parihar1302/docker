@@ -41,4 +41,68 @@ volumes:                    ##{creating myvolume1 & myvolume2 to add on containe
 networks:                   ##{creating mynetwork1 and mynetwork2 to add on container}
   mynetwork1:
   mynetwork2:
+  
+  
+  
+  
+  
+  
+
+
+___________________________________________________________________________________________________________________________________
+
+## Sample Docker-compose file Using Restart Policy  ##############
+
+
+
+version: "3"                            ## version is based on docker engine
+services:
+  nginx1:                               ## service name given as nginx1
+    depends_on:                         ## before running nginx1, first jenkins2 service should be ran
+      - jenkins2
+    build: .                            ## building image from Dockerfile, "." shows currecnt working directory
+    ports:                              ## portmapping with dockerhost port 7000 to container port 80
+      - "7000:80"
+    restart: always                     ## automatically start container if dockerhost restart
+    volumes:                            ## mounting volumes
+      - vol1:/tmp/esscaltion/
+    networks:                           ## adding networks
+      - net1
+    image: parihar1302/dcimage:2.0      ## Giving new image name, it is used when u build the image in docker-compose
+  jenkins2:                             ## jenkins2 is a service
+    depends_on:
+      - nginx3
+    image: jenkins
+    ports:
+      - "8000:8080"
+    restart: always
+    volumes:
+      - vol2:/data
+    networks:
+      - net2
+  nginx3:
+    depends_on:
+      - redis4
+    restart: always
+    image: nginx
+    ports:
+      - "9000:80"
+    volumes:
+      - vol1:/tmp/important/
+    networks:
+      - net1
+  redis4:
+    image: redis
+    restart: always
+    volumes:
+      - vol2:/tmp/priority/
+    networks:
+      - net2
+volumes:
+  vol1:
+  vol2:
+networks:
+  net1:
+  net3:
+                                     
 
