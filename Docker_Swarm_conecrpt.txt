@@ -1,0 +1,300 @@
+docker swarm                 https://rominirani.com/docker-swarm-tutorial-b67470cf8872
+------------------------
+docker swarm init     ##{to make manager/master}{also it create ingress network}
+
+docker swarm join --token w ....   ##{run on different machine to make as worker/node and add into the cluster}
+
+docker swarm join-token worker 01    ##{retrive worker token name from master VB}
+
+docker swarm join-token worker 02    ##{retrive manager token}
+
+docker swarm join --token manager ....    ##{run on different machine to make as manager & add into the cluster}Can run in a worker, thn u will get 1 more entry in cluster
+                                          ##{at a time same node act as worker as well as manager} 
+
+docker node ls     ##{showing for manager not for node}{after making a manager any node can use commands and see activity but cant execute on cluster, master will only execute}
+
+watch docker ps       ##[]chk output in every 2 sec
+
+docker swarm leave            ##{command into the worker to leave from cluser } this will not work for manager. 
+  OR
+docker swarm node leave   %%%% this dint work used rm instead     ##{can not remove active worker directly, u need to down it first.}
+
+
+##{note:- to remove manager from swarm, u need to demote as worker than docker swarm leave. U can do it from master as well as manager node.}
+##{note:- when swarm will no longer to be used after manager leave like in 1 node cluster . give this :- docker swarm leave --force.}
+
+docker node ps worker01_id     ##{to chck what's going on in node}
+
+docker node rm worke02_id      ##{run on master and any manager to remove worker<>hostnameisaworkermachinename}
+
+docker rm -f worker01_id      ##{forc e delete}  error:- not correct command   
+
+docker node inspect self      ##{if u r on master or manager thn u cn use self}
+
+docker node inspect worker01    {chcking role.}
+
+docker service create -itd nginx ping   #{creating service & running container}
+
+docker service ls       ##{list all service}
+
+docker node promote worker01 worker02           ##{worker promotong as manager} recommadn 1, 3, 5, odd manager
+
+docker node demote worker01 worker02            #managers demoting as worker
+
+docker service create -itd nginx ping   #{creating service & running container}
+
+docker service ls       ##{list all service}
+
+docker service inspect
+
+docker service rm service_id              ##{removinf service}
+
+docker service rm -f service_id
+
+docker service logs      
+
+docker service create -d --replicas 4 nginx ping masterIPADD             ##{replicas of service, so if one goes down automatically it create another replica}
+https://rominirani.com/docker-swarm-tutorial-b67470cf8872
+docker service ps service_id       ##{status of service}
+
+docker service scale service_id=6             ##{scaling up the service}
+                                              ##{to see the modification :-Scaling number should be above than actual(replica)value
+
+docker service scale service_id=7 service_id=6          ##{scailing up multiple services}
+
+docker service create -d -p 8090:80 nginx       ##{running container port mapping, so 8090 is a cluster port mapping to 80 container port.}
+                                                ##{it can be accessiable from browser by every node(manager and worker) url hit:- masterIP:8090 or worker01ip:8090 or worker02IP:8090}
+
+docker service scale nginx=4      ##{scaling up nginx service, every 4 container will maped with 8090:80 automatically & can be accessible from browser by giving node ip:port}
+
+
+
+
+## Docker Swarm Visulaizer
+-------------------------------
+
+sudo docker run -it -d -p 5000:8080 -v /var/run/docker.sock:/var/run/docker.sock dockersamples/visualizer       ##{install visulazser on master}
+
+sudo docker images
+
+docker service create \         ##{visualzer to view services in GUI mode}
+
+docker service create mode=global nginx ping 8.8.8.8        ##{mode command is to provide service to be run in every node.}
+Not:- after above command if u add more node in the cluster,  automatically every node will have nginx service running
+
+docker service create --replicas=3 --constraint="node.role==manager" nginx ping masteripadd   	  ##{running only on master}   
+
+docker service create --replicas=4 --constarint="node.role==worker" alpine ping masteripadd        ##{running only on worker}
+
+
+
+
+
+#### Label:- i.) node label level
+   --------- ii.) engine level label
+
+
+docker node update --label-add="ssd=true" worker01       ##{adding label, called as node level label}
+
+docker service create --constraint="node.labels.ssd==true" --replicas=3 -d nginx ping masterIP        ##{running nginx service which are having ssd label only}
+Note:- now if u add label in worker02, docker will not shift some serives into worker02 , ala-way u have to assign label first thn onlyt create service
+
+## for engine label u have to write in node on which u want to run service
+worker02#$ vi /etc/docker/deamon.json               ##config file location} 
+{
+        "labels" : [name=abhisheknode"]
+}
+
+worker02#$ service docker restart            ##{restart the docker}
+
+## go back to master
+
+docker service inspect worker02        ##{check label}
+
+docker service create --constraint="engine.labels.name==abhisheknode" --replicas=3 -d nginx ping masteripadd     ##{nginx will run only those node which will have abhisheknode labelcalled as engine level label}
+
+
+
+
+## Node availability
+-------------------------------------------------
+
+docker node update --availability=pause worker02         ##{pause all worker02 containers, now nw load or anyother activity can not be loaded on worker02 }
+
+docker node update --availability=pause worker02      ##{making node worker2 active again}
+
+docker node update --availability=pause worker02         ##{in drain condition all container of node worker02 will shift to master and worker01}
+
+docker node update --availability drain worker01         ##{Manager will stop tasks running on that node and launches the replicas on other nodes with ACTIVE availability but u can still hit the node on web ,}
+note##{even node is drain and shift compelete tarffic onto different nodes, but still u can hit the url and it will server the content}
+  
+note:- if u have only 1 master and by mistake u stop that master, in workers node will still be running container but in master all container will be stopped but onse u start master node(docker host) automatically all server will come up & running
+       but all if hit url of master manager or worker all node will give u result.
+Note:- if u terminate or delete master node machine in 1-0 clusterthen u cn not retrive anything.
+
+note:- if master node goes on drain availability state then all container of master node will go on another manager node and that another manager will become a master/leader node.
+        
+
+
+
+
+
+## Secreat:- i.) standard i/p and o/p
+  -----------ii.)
+
+docker secret create dbpass - 
+
+docker secret ls
+
+docker secret inspect secret_id
+
+vi testpw
+mypassword
+
+docker secret create mytestfile testpw
+
+docker secret create -d --secret dbpass nginx ping masterIP
+
+docker ps
+
+## go to the node where this container is running 
+
+worker02#$ docker exec -it container_id /bin/bash
+
+worker02#$ cd /run/secret
+
+worker02#$ ls
+
+##go back to master node
+
+docker service create -d --secret dbpass -e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/dbpass mysql
+
+docker ps
+
+##go to the node where it has been created
+worker01#$ docker exec -it container_id /bin/bash
+
+worker01#$ cat /run/secrets/dbpass
+
+##copy the password
+worker01#$ mysql -u root -p <paste the password here>     ##{error because of worng passwd}
+
+
+
+
+
+
+## Overlay network (ip range 10.0.2.xxx)
+----------------------------------------------------
+
+# by default overley network is not encrypted, but we can encrypt, doesnt support windows OS 
+# by default u can not add container in overlay network for that u need to use attachable arguments.
+ex:- docker network create -d overlay --attachable test1      ##{now coonect with container}
+# can communicate 2 containrer which are placed in 2 different docker host
+# cn communicate 2 different port which are in overlay network
+## Ingress network:- when u perform docker swarn init by default it comes with that.
+                     it also has inbuilt Load balancer
+Note:- if service is present only on master and worker01 but not in worker03 and user hit worker03IP:port than ingress load balancer will redirect traffic onto master and worker02. 
+
+docker network ls
+
+docker network create -d overlay test       ##{creating overlay network }
+
+docker service create -d --network test coolgourav147/sleeper_treaceroute
+
+docker service scale service_id=3
+
+## go into worker01 & 02
+docker run -d --network=test coolgourav147/sleeper_treaceroute     ##{error:- by default cnnot connect container with overlay network}
+
+## go to master
+docker network create -d overlay --attachable test1       ##{creating new test1 ovrlay network with attachable argument}
+
+## go onto worker01 and 02
+docker run -d --network=test coolgourav147/sleeper_treaceroute
+
+docker exec -it container_id /bin/bash
+
+ipconfig in all node    {copy the overlay neworker ip 10.0.2.xxx)
+
+woeker01#$ ping worker02IPAdd
+
+#go back on master
+docker service create -d --replicas 2 -p 9000:80 nginx
+
+# now try to login ffom each nodeIP:port hit the browser
+masterIP:9000
+worker01:9000
+worker02:9000
+
+#go to every workers n their respective container , and change nginx index.html file content to chk load balancing
+worker01#$ vi /usr/share/nginx/html/index.html   "this is worker01"
+worker02#$ vi /usr/share/nginx/html/index.html    "this is worker02"
+
+hit the url with worker01IP:9000 and worker02IP:9000 refresh
+
+
+
+
+
+## Docker Stack 
+--------------------------
+
+# docker-compose doesn't work for swarm , to make it work u need to use docker stack command.
+
+docker stack deploy -c docker-compose.yml wordpressstack             ##{deploying a new stack named as wordpressstack, -c is a compose file name, file is docker-compose.yml, wordpressstack is name}
+
+docker stack ls   ##{list all stack}
+
+docker stack ps wordpressstacck   ##{status of stack}
+
+docker stack services wordpressstack       ##{list all the service which are under wordpressstack}
+
+docker stack rm wordpresstack            ##{removing stack}
+
+docker stack services wordpressstack
+
+
+
+
+
+## Docker events
+---------------------------------------------------
+
+# u cn only monitor all the event of docker swarm.
+
+docker service create -d ubuntu ping masterip
+
+docker events
+
+docker network create test1                ##{creating network soo it will reflect on docker event}
+docker events --filter 'event=create'            ##{filtered & showed the create event }
+ 
+docker volume rm test2                      ##{remove volume to reflect on event}
+docker events --filter 'event=delete'        ##{filterd & showing delete event}
+
+docker events --filter 'container=container_id'         ##{shows perticular container event }
+
+# can use container, image, network, node, volume and etc.
+
+
+
+
+
+
+
+
+
+Q.) port mapping on existing container
+
+Q.) in 3-0, 1 master 1 manager and 1 worker if master goes down then why other manager not becoming lead/master? It also give result on browser url
+A.) If master node availability is drain then another manager will become master and have all container.
+    but if u stop docker on master then another manager node will not become master, will wait for come up. meanwhile worker node will work fine
+
+Q.) i did reverse master avaiability drain but 1 time other manager became master but again it did it the same for them, it did not become master again ???
+
+
+Q.) what if master and other managers node will becone drain, will it send the traffic to worker?
+A.) Yes, worker node will take all traffic and running all the instances
+
+Q.)
