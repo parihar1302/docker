@@ -341,7 +341,7 @@
 
 #$ ADD <url paste here>
 
-#$ CMD ["python"]                   ##{command which execute after container creation}
+#$ CMD ["python"]                   ##{command which execute after container creation}     ##{can be override/modify at run time}
 
 :wq   ##{save & exit}
 
@@ -627,3 +627,14 @@ A.)
 
 Q.) What are the Docker drives?
 A.) overlay2, aufs, devicemapper, btrfs, zfs, vfs.
+
+
+Q.) EntryPoint vs CMD difference ?          ##https://www.youtube.com/watch?v=6lcYyo9e7-0
+A.) EntryPoint :- It executes after creation of container.
+                  Value can be overrided instead, it append/add at run time.
+                  Comes before CMD
+                  
+    CMD:- It execute after container creation. 
+          Value can be override at run time.
+          It acts as default argument for EntryPoint
+
